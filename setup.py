@@ -12,21 +12,15 @@ version = '3.5.0'
 repo_base = os.path.dirname(__file__)
 
 
-def arch_ext():
-    return 'amd64'
-
-
-def arch_name():
-    return 'x86_64'
-
-
 def platform_ext():
     if os.environ.get('BUILD_MAC', None) is not None:
-        return 'darwin'
+        return 'darwin-amd64'
     if os.environ.get('BUILD_LINUX', None) is not None:
-        return 'linux'
+        return 'linux-amd64'
+    if os.environ.get('BUILD_LINUX_ARM', None) is not None:
+        return 'linux-arm64'
     if os.environ.get('BUILD_WIN', None) is not None:
-        return 'windows'
+        return 'windows-amd64'
     raise RuntimeError('Set the BUILD_{MAC,LINUX,WIN} environment before packaging')
 
 
@@ -35,9 +29,11 @@ def platform_name():
         return 'macosx_10_9_x86_64'
     if os.environ.get('BUILD_LINUX', None) is not None:
         return 'manylinux1_x86_64'
+    if os.environ.get('BUILD_LINUX_ARM', None) is not None:
+        return 'manylinux2014_aarch64'
     if os.environ.get('BUILD_WIN', None) is not None:
         return 'win_amd64'
-    raise RuntimeError('Set the BUILD_{MAC,LINUX,WIN} environment before packaging')
+    raise RuntimeError('Set the BUILD_{MAC,LINUX,LINUX_ARM,WIN} environment before packaging')
 
 
 class bdist_wheel_injected(bdist_wheel):
@@ -53,13 +49,12 @@ class build_py_with_extra_data(build_py):
         rs = super()._get_data_files()
 
         platform = platform_ext()
-        arch = arch_ext()
-        folder = 'etcd-v%s-%s-%s' % (version, platform, arch)
+        folder = 'etcd-v%s-%s' % (version, platform)
 
         package = 'etcd_distro.etcdbin'
         src_dir = os.path.join(repo_base, 'etcd', 'v%s' % version, folder)
         build_dir = os.path.join(*([self.build_lib] + package.split('.')))
-        if platform == 'windows':
+        if 'windows' in platform:
             filenames = ['etcd.exe', 'etcdctl.exe', 'etcdutl.exe']
         else:
             filenames = ['etcd', 'etcdctl', 'etcdutl']

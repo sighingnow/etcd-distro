@@ -29,3 +29,6 @@ default.etcd/
 
 # go vendor
 /**/vendor/
+
+# etcd dist
+/etcd/

@@ -19,9 +19,13 @@ def platform_ext():
         return 'linux-amd64'
     if os.environ.get('BUILD_LINUX_ARM', None) is not None:
         return 'linux-arm64'
+    if os.environ.get('BUILD_LINUX_PPC64LE', None) is not None:
+        return 'linux-ppc64le'
+    if os.environ.get('BUILD_LINUX_S390X', None) is not None:
+        return 'linux-s390x'
     if os.environ.get('BUILD_WIN', None) is not None:
         return 'windows-amd64'
-    raise RuntimeError('Set the BUILD_{MAC,LINUX,WIN} environment before packaging')
+    raise RuntimeError('Set the BUILD_* environment before packaging')
 
 
 def platform_name():
@@ -31,9 +35,13 @@ def platform_name():
         return 'manylinux1_x86_64'
     if os.environ.get('BUILD_LINUX_ARM', None) is not None:
         return 'manylinux2014_aarch64'
+    if os.environ.get('BUILD_LINUX_PPC64LE', None) is not None:
+        return 'manylinux2014_ppc64le'
+    if os.environ.get('BUILD_LINUX_S390X', None) is not None:
+        return 'manylinux2014_s390x'
     if os.environ.get('BUILD_WIN', None) is not None:
         return 'win_amd64'
-    raise RuntimeError('Set the BUILD_{MAC,LINUX,LINUX_ARM,WIN} environment before packaging')
+    raise RuntimeError('Set the BUILD_* environment before packaging')
 
 
 class bdist_wheel_injected(bdist_wheel):

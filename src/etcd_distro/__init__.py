@@ -23,10 +23,14 @@ base_loc = os.path.join(os.path.dirname(__file__), 'etcdbin')
 def _program(name, args):
     if os.name == 'nt':
         name = name + '.exe'
-    try:
-        return subprocess.call([os.path.join(base_loc, name)] + args)
-    except KeyboardInterrupt:
-        return 0
+    prog = os.path.join(base_loc, name)
+    if os.name == 'nt':
+        try:
+            return subprocess.call([prog] + args)
+        except KeyboardInterrupt:
+            return 0
+    else:
+        return os.execvp(prog, [prog] + args)
 
 
 def etcd():

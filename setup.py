@@ -8,7 +8,7 @@ from setuptools.command.build_py import build_py
 from wheel.bdist_wheel import bdist_wheel
 
 
-version = '3.5.0'
+version = '3.5.1'
 repo_base = os.path.dirname(__file__)
 
 

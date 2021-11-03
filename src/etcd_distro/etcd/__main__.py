@@ -13,5 +13,8 @@
 # limitations under the License.
 #
 
-from ._program import etcd, etcdctl, etcdutl
+from .._program import etcd
+
+if __name__ == '__main__':
+    etcd()
 

@@ -13,5 +13,3 @@
 # limitations under the License.
 #
 
-from ._program import etcd, etcdctl, etcdutl
-

@@ -15,6 +15,8 @@ repo_base = os.path.dirname(__file__)
 def platform_ext():
     if os.environ.get('BUILD_MAC', None) is not None:
         return 'darwin-amd64'
+    if os.environ.get('BUILD_MAC_M1', None) is not None:
+        return 'darwin-arm64'
     if os.environ.get('BUILD_LINUX', None) is not None:
         return 'linux-amd64'
     if os.environ.get('BUILD_LINUX_ARM', None) is not None:
@@ -31,6 +33,8 @@ def platform_ext():
 def platform_name():
     if os.environ.get('BUILD_MAC', None) is not None:
         return 'macosx_10_9_x86_64'
+    if os.environ.get('BUILD_MAC_M1', None) is not None:
+        return 'macosx_10_15_arm64'
     if os.environ.get('BUILD_LINUX', None) is not None:
         return 'manylinux1_x86_64'
     if os.environ.get('BUILD_LINUX_ARM', None) is not None:

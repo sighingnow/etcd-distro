@@ -34,7 +34,7 @@ def platform_name():
     if os.environ.get('BUILD_MAC', None) is not None:
         return 'macosx_10_9_x86_64'
     if os.environ.get('BUILD_MAC_M1', None) is not None:
-        return 'macosx_10_15_arm64'
+        return 'macosx_11_0_arm64'
     if os.environ.get('BUILD_LINUX', None) is not None:
         return 'manylinux1_x86_64'
     if os.environ.get('BUILD_LINUX_ARM', None) is not None:
